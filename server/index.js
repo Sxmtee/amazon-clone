@@ -25,6 +25,6 @@ mongoose
     console.log(e);
   });
 
-app.listen(PORT, "0.0.0.0", () => {
+app.listen(PORT, "localhost", () => {
   console.log(`connected at port ${PORT}`);
 });

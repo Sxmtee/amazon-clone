@@ -1,6 +1,7 @@
 import 'package:amazon/Common/Widgets/button.dart';
 import 'package:amazon/Common/Widgets/textField.dart';
 import 'package:amazon/Constants/global_variable.dart';
+import 'package:amazon/Features/Auth/Services/auth_services.dart';
 import 'package:flutter/material.dart';
 
 enum Auth { signin, signup }
@@ -15,6 +16,7 @@ class AuthScreen extends StatefulWidget {
 
 class _AuthScreenState extends State<AuthScreen> {
   Auth _auth = Auth.signup;
+  final AuthService authService = AuthService();
   final signUpKey = GlobalKey<FormState>();
   final signInKey = GlobalKey<FormState>();
   TextEditingController nameCtrl = TextEditingController();
@@ -29,9 +31,18 @@ class _AuthScreenState extends State<AuthScreen> {
     passCtrl.dispose();
   }
 
+  void signUpUser() {
+    authService.signUpUser(
+        context: context,
+        email: emailCtrl.text,
+        password: passCtrl.text,
+        name: nameCtrl.text);
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      resizeToAvoidBottomInset: false,
       backgroundColor: GlobalVariables.greyBackgroundCOlor,
       body: SafeArea(
           child: Padding(
@@ -93,7 +104,14 @@ class _AuthScreenState extends State<AuthScreen> {
                       const SizedBox(
                         height: 10,
                       ),
-                      Button(text: "Sign Up", onpressed: () {})
+                      Button(
+                          text: "Sign Up",
+                          onpressed: () {
+                            if (signUpKey.currentState!.validate()) {
+                              signUpKey.currentState!.save();
+                              signUpUser();
+                            }
+                          })
                     ],
                   ),
                 ),

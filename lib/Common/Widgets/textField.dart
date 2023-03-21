@@ -1,4 +1,3 @@
-import 'package:amazon/Constants/global_variable.dart';
 import 'package:flutter/material.dart';
 
 class TextAreas extends StatelessWidget {
@@ -18,7 +17,10 @@ class TextAreas extends StatelessWidget {
         enabledBorder: const OutlineInputBorder(
             borderSide: BorderSide(color: Colors.black38)),
       ),
-      validator: (value) {
+      validator: (val) {
+        if (val == null || val.isEmpty) {
+          return "Enter Your $hintText";
+        }
         return null;
       },
     );
