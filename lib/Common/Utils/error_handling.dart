@@ -1,6 +1,6 @@
 import 'dart:convert';
 
-import 'package:amazon/Constants/snackbar.dart';
+import 'package:amazon/Common/Utils/snackbar.dart';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 

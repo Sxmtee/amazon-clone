@@ -1,6 +1,6 @@
 import 'package:amazon/Common/Widgets/button.dart';
 import 'package:amazon/Common/Widgets/textField.dart';
-import 'package:amazon/Constants/global_variable.dart';
+import 'package:amazon/Common/Utils/global_variable.dart';
 import 'package:amazon/Features/Auth/Services/auth_services.dart';
 import 'package:flutter/material.dart';
 
@@ -33,10 +33,11 @@ class _AuthScreenState extends State<AuthScreen> {
 
   void signUpUser() {
     authService.signUpUser(
-        context: context,
-        email: emailCtrl.text,
-        password: passCtrl.text,
-        name: nameCtrl.text);
+      context: context,
+      email: emailCtrl.text,
+      password: passCtrl.text,
+      name: nameCtrl.text,
+    );
   }
 
   @override
@@ -45,128 +46,136 @@ class _AuthScreenState extends State<AuthScreen> {
       resizeToAvoidBottomInset: false,
       backgroundColor: GlobalVariables.greyBackgroundCOlor,
       body: SafeArea(
-          child: Padding(
-        padding: const EdgeInsets.all(8.0),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            const Text(
-              "Welcome",
-              style: TextStyle(fontSize: 22, fontWeight: FontWeight.w500),
-            ),
-            ListTile(
-              tileColor: _auth == Auth.signup
-                  ? GlobalVariables.backgroundColor
-                  : GlobalVariables.greyBackgroundCOlor,
-              title: const Text(
-                "Create Account",
+        child: Padding(
+          padding: const EdgeInsets.all(8.0),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              const Text(
+                "Welcome",
                 style: TextStyle(
-                  fontWeight: FontWeight.bold,
+                  fontSize: 22,
+                  fontWeight: FontWeight.w500,
                 ),
               ),
-              leading: Radio(
-                activeColor: GlobalVariables.secondaryColor,
-                value: Auth.signup,
-                groupValue: _auth,
-                onChanged: (value) {
-                  setState(() {
-                    _auth = value!;
-                  });
-                },
+              ListTile(
+                tileColor: _auth == Auth.signup
+                    ? GlobalVariables.backgroundColor
+                    : GlobalVariables.greyBackgroundCOlor,
+                title: const Text(
+                  "Create Account",
+                  style: TextStyle(
+                    fontWeight: FontWeight.bold,
+                  ),
+                ),
+                leading: Radio(
+                  activeColor: GlobalVariables.secondaryColor,
+                  value: Auth.signup,
+                  groupValue: _auth,
+                  onChanged: (value) {
+                    setState(() {
+                      _auth = value!;
+                    });
+                  },
+                ),
               ),
-            ),
-            if (_auth == Auth.signup)
-              Container(
-                padding: const EdgeInsets.all(8.0),
-                color: GlobalVariables.backgroundColor,
-                child: Form(
-                  key: signUpKey,
-                  child: Column(
-                    children: [
-                      TextAreas(
-                        controller: nameCtrl,
-                        hintText: "Name",
-                      ),
-                      const SizedBox(
-                        height: 10,
-                      ),
-                      TextAreas(
-                        controller: emailCtrl,
-                        hintText: "Email",
-                      ),
-                      const SizedBox(
-                        height: 10,
-                      ),
-                      TextAreas(
-                        controller: passCtrl,
-                        hintText: "Password",
-                      ),
-                      const SizedBox(
-                        height: 10,
-                      ),
-                      Button(
+              if (_auth == Auth.signup)
+                Container(
+                  padding: const EdgeInsets.all(8.0),
+                  color: GlobalVariables.backgroundColor,
+                  child: Form(
+                    key: signUpKey,
+                    child: Column(
+                      children: [
+                        TextAreas(
+                          controller: nameCtrl,
+                          hintText: "Name",
+                        ),
+                        const SizedBox(
+                          height: 10,
+                        ),
+                        TextAreas(
+                          controller: emailCtrl,
+                          hintText: "Email",
+                        ),
+                        const SizedBox(
+                          height: 10,
+                        ),
+                        TextAreas(
+                          controller: passCtrl,
+                          hintText: "Password",
+                        ),
+                        const SizedBox(
+                          height: 10,
+                        ),
+                        Button(
                           text: "Sign Up",
                           onpressed: () {
                             if (signUpKey.currentState!.validate()) {
                               signUpKey.currentState!.save();
                               signUpUser();
                             }
-                          })
-                    ],
+                          },
+                        )
+                      ],
+                    ),
                   ),
                 ),
-              ),
-            ListTile(
-              tileColor: _auth == Auth.signin
-                  ? GlobalVariables.backgroundColor
-                  : GlobalVariables.greyBackgroundCOlor,
-              title: const Text(
-                "Sign-In",
-                style: TextStyle(
-                  fontWeight: FontWeight.bold,
-                ),
-              ),
-              leading: Radio(
-                activeColor: GlobalVariables.secondaryColor,
-                value: Auth.signin,
-                groupValue: _auth,
-                onChanged: (value) {
-                  setState(() {
-                    _auth = value!;
-                  });
-                },
-              ),
-            ),
-            if (_auth == Auth.signin)
-              Container(
-                padding: const EdgeInsets.all(8.0),
-                color: GlobalVariables.backgroundColor,
-                child: Form(
-                  key: signUpKey,
-                  child: Column(
-                    children: [
-                      TextAreas(
-                        controller: emailCtrl,
-                        hintText: "Email",
-                      ),
-                      const SizedBox(
-                        height: 10,
-                      ),
-                      TextAreas(
-                        controller: passCtrl,
-                        hintText: "Password",
-                      ),
-                      const SizedBox(
-                        height: 10,
-                      ),
-                      Button(text: "Sign In", onpressed: () {})
-                    ],
+              ListTile(
+                tileColor: _auth == Auth.signin
+                    ? GlobalVariables.backgroundColor
+                    : GlobalVariables.greyBackgroundCOlor,
+                title: const Text(
+                  "Sign-In",
+                  style: TextStyle(
+                    fontWeight: FontWeight.bold,
                   ),
                 ),
+                leading: Radio(
+                  activeColor: GlobalVariables.secondaryColor,
+                  value: Auth.signin,
+                  groupValue: _auth,
+                  onChanged: (value) {
+                    setState(() {
+                      _auth = value!;
+                    });
+                  },
+                ),
               ),
-          ],
+              if (_auth == Auth.signin)
+                Container(
+                  padding: const EdgeInsets.all(8.0),
+                  color: GlobalVariables.backgroundColor,
+                  child: Form(
+                    key: signUpKey,
+                    child: Column(
+                      children: [
+                        TextAreas(
+                          controller: emailCtrl,
+                          hintText: "Email",
+                        ),
+                        const SizedBox(
+                          height: 10,
+                        ),
+                        TextAreas(
+                          controller: passCtrl,
+                          hintText: "Password",
+                        ),
+                        const SizedBox(
+                          height: 10,
+                        ),
+                        Button(
+                          text: "Sign In",
+                          onpressed: () {},
+                        )
+                      ],
+                    ),
+                  ),
+                ),
+            ],
+          ),
         ),
-      )),
+      ),
     );
   }
 }

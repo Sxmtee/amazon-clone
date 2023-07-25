@@ -1,6 +1,6 @@
-import 'package:amazon/Constants/error_handling.dart';
-import 'package:amazon/Constants/global_variable.dart';
-import 'package:amazon/Constants/snackbar.dart';
+import 'package:amazon/Common/Utils/error_handling.dart';
+import 'package:amazon/Common/Utils/global_variable.dart';
+import 'package:amazon/Common/Utils/snackbar.dart';
 import 'package:amazon/Models/user.dart';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
@@ -15,13 +15,14 @@ class AuthService {
   }) async {
     try {
       User user = User(
-          address: "",
-          id: "",
-          name: name,
-          password: password,
-          token: "",
-          type: "",
-          email: email);
+        address: "",
+        id: "",
+        name: name,
+        password: password,
+        token: "",
+        type: "",
+        email: email,
+      );
 
       var url = Uri.parse("$uri/api/signup");
       http.Response res =
